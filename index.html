@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wanderlux — Premium Tour & Travel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" id="navbar">
+    <div class="container navbar__inner">
+      <a href="#" class="navbar__brand">
+        <svg class="navbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M2 12h20"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
+        </svg>
+        <span>Wanderlux</span>
+      </a>
+      <nav class="navbar__links" id="navLinks">
+        <a href="#home" class="navbar__link active">Home</a>
+        <a href="#destinations" class="navbar__link">Destinations</a>
+        <a href="#packages" class="navbar__link">Packages</a>
+        <a href="#deals" class="navbar__link">Deals</a>
+        <a href="#contact" class="navbar__link">Contact</a>
+      </nav>
+      <div class="navbar__tools">
+        <button class="wishlist-toggle" id="wishlistToggle" aria-label="Wishlist">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="wishlist-badge" id="wishlistBadge">0</span>
+        </button>
+        <div class="currency-switcher" id="currencySwitcher">
+          <button class="currency-switcher__btn" id="currencyBtn" aria-label="Switch currency">
+            <span id="currencySymbol">$</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="currency-switcher__dropdown" id="currencyDropdown">
+            <button class="currency-option active" data-currency="USD">$ USD</button>
+            <button class="currency-option" data-currency="INR">₹ INR</button>
+            <button class="currency-option" data-currency="EUR">€ EUR</button>
+          </div>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <svg class="theme-toggle__icon theme-toggle__icon--sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="theme-toggle__icon theme-toggle__icon--moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="btn btn--primary navbar__cta" onclick="openBookingModal()">Book Trip</button>
+      </div>
+      <button class="navbar__toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="home">
+    <div class="hero__overlay"></div>
+    <div class="container hero__content">
+      <p class="hero__tag">✨ Explore 100+ Dream Destinations</p>
+      <h1 class="hero__title">Discover Your Next<br/><span class="hero__title--accent">Adventure</span></h1>
+      <p class="hero__subtitle">Curated travel experiences that transform ordinary trips into extraordinary memories. Let us plan your perfect escape.</p>
+
+      <!-- Search & Filter Bar -->
+      <div class="search-bar" id="searchBar">
+        <div class="search-bar__field">
+          <label for="searchInput">Destination</label>
+          <input type="text" id="searchInput" placeholder="Search destinations..." />
+        </div>
+        <div class="search-bar__field">
+          <label for="searchDate">Date</label>
+          <input type="date" id="searchDate" />
+        </div>
+        <div class="search-bar__field">
+          <label for="searchGuests">Travelers</label>
+          <select id="searchGuests">
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5+</option>
+          </select>
+        </div>
+        <div class="search-bar__field">
+          <label for="searchBudget">Budget</label>
+          <select id="searchBudget">
+            <option>Any</option>
+            <option>Under $1000</option>
+            <option>$1000 – $2000</option>
+            <option>$2000 – $5000</option>
+            <option>$5000+</option>
+          </select>
+        </div>
+        <button class="btn btn--primary search-bar__cta" onclick="scrollToSection('destinations')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Search
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== STATS ==================== -->
+  <section class="stats">
+    <div class="container stats__grid">
+      <div class="stat">
+        <span class="stat__number">200+</span>
+        <span class="stat__label">Destinations</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">15K+</span>
+        <span class="stat__label">Happy Travelers</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">4.9</span>
+        <span class="stat__label">Average Rating</span>
+      </div>
+      <div class="stat">
+        <span class="stat__number">98%</span>
+        <span class="stat__label">Satisfaction Rate</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DESTINATIONS ==================== -->
+  <section class="section" id="destinations">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Top Destinations</p>
+        <h2 class="section__title">Explore Popular Places</h2>
+        <p class="section__desc">Handpicked destinations loved by thousands of travelers worldwide.</p>
+      </div>
+
+      <!-- Filter Tabs & Sort -->
+      <div class="filter-bar">
+        <div class="filter-tabs" id="filterTabs">
+          <button class="filter-tab active" data-filter="all">All</button>
+          <button class="filter-tab" data-filter="beach">Beach</button>
+          <button class="filter-tab" data-filter="mountain">Mountain</button>
+          <button class="filter-tab" data-filter="cultural">Cultural</button>
+          <button class="filter-tab" data-filter="romantic">Romantic</button>
+        </div>
+        <div class="sort-wrap">
+          <label for="sortSelect">Sort By</label>
+          <select id="sortSelect">
+            <option value="default">Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Top Rated</option>
+            <option value="reviews">Most Reviewed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Destination Cards Grid -->
+      <div class="dest-grid" id="destGrid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== PACKAGES ==================== -->
+  <section class="section section--alt" id="packages">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Travel Packages</p>
+        <h2 class="section__title">Choose Your Perfect Package</h2>
+        <p class="section__desc">All-inclusive packages designed to give you the best value.</p>
+      </div>
+      <div class="pkg-grid">
+        <div class="pkg-card">
+          <div class="pkg-card__badge">Popular</div>
+          <h3 class="pkg-card__name">Explorer</h3>
+          <div class="pkg-card__price"><span>$899</span>/person</div>
+          <ul class="pkg-card__list">
+            <li>3-Star Accommodation</li>
+            <li>Guided City Tours</li>
+            <li>Breakfast Included</li>
+            <li>Airport Transfers</li>
+          </ul>
+          <button class="btn btn--outline pkg-card__btn" onclick="openBookingWithPkg('Explorer')">Select Package</button>
+        </div>
+        <div class="pkg-card pkg-card--featured">
+          <div class="pkg-card__badge">Best Value</div>
+          <h3 class="pkg-card__name">Adventurer</h3>
+          <div class="pkg-card__price"><span>$1,499</span>/person</div>
+          <ul class="pkg-card__list">
+            <li>4-Star Accommodation</li>
+            <li>Private Guided Tours</li>
+            <li>All Meals Included</li>
+            <li>Adventure Activities</li>
+            <li>Airport Transfers</li>
+          </ul>
+          <button class="btn btn--primary pkg-card__btn" onclick="openBookingWithPkg('Adventurer')">Select Package</button>
+        </div>
+        <div class="pkg-card">
+          <div class="pkg-card__badge">Premium</div>
+          <h3 class="pkg-card__name">Luxe Escape</h3>
+          <div class="pkg-card__price"><span>$2,999</span>/person</div>
+          <ul class="pkg-card__list">
+            <li>5-Star Resort / Villa</li>
+            <li>Personal Concierge</li>
+            <li>All-Inclusive Dining</li>
+            <li>Spa & Wellness</li>
+            <li>Private Transfers</li>
+          </ul>
+          <button class="btn btn--outline pkg-card__btn" onclick="openBookingWithPkg('Luxe Escape')">Select Package</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DEALS ==================== -->
+  <section class="section" id="deals">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Limited Time Offers</p>
+        <h2 class="section__title">Exclusive Travel Deals</h2>
+        <p class="section__desc">Don't miss these incredible limited-time offers.</p>
+      </div>
+      <div class="deals-grid">
+        <div class="deal-card deal-card--wide">
+          <img src="https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=800&q=80" alt="Maldives deal" class="deal-card__img" onerror="onImgError(this)" />
+          <div class="deal-card__content">
+            <span class="deal-card__tag">30% OFF</span>
+            <h3 class="deal-card__title">Maldives Paradise Escape</h3>
+            <p class="deal-card__text">7 nights in an overwater villa with all-inclusive dining and snorkeling.</p>
+            <div class="deal-card__price">
+              <span class="deal-card__price--old">$3,500</span>
+              <span class="deal-card__price--new">$2,450</span>
+            </div>
+            <button class="btn btn--primary" onclick="openBookingWithPkg('Maldives Deal')">Grab This Deal</button>
+          </div>
+        </div>
+        <div class="deal-card">
+          <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&q=80" alt="Kyoto deal" class="deal-card__img" onerror="onImgError(this)" />
+          <div class="deal-card__content">
+            <span class="deal-card__tag">25% OFF</span>
+            <h3 class="deal-card__title">Kyoto Cultural Journey</h3>
+            <p class="deal-card__text">5 nights exploring temples, gardens & tea ceremonies.</p>
+            <div class="deal-card__price">
+              <span class="deal-card__price--old">$2,200</span>
+              <span class="deal-card__price--new">$1,650</span>
+            </div>
+            <button class="btn btn--primary btn--sm" onclick="openBookingWithPkg('Kyoto Deal')">Grab This Deal</button>
+          </div>
+        </div>
+        <div class="deal-card">
+          <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80" alt="Paris deal" class="deal-card__img" onerror="onImgError(this)" />
+          <div class="deal-card__content">
+            <span class="deal-card__tag">20% OFF</span>
+            <h3 class="deal-card__title">Paris Romance Package</h3>
+            <p class="deal-card__text">4 nights with Eiffel Tower dinner cruise included.</p>
+            <div class="deal-card__price">
+              <span class="deal-card__price--old">$2,800</span>
+              <span class="deal-card__price--new">$2,240</span>
+            </div>
+            <button class="btn btn--primary btn--sm" onclick="openBookingWithPkg('Paris Deal')">Grab This Deal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BUDGET CALCULATOR ==================== -->
+  <section class="section section--alt" id="calculator">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Trip Planner</p>
+        <h2 class="section__title">Custom Budget Calculator</h2>
+        <p class="section__desc">Get an instant cost estimate for your dream trip based on your preferences.</p>
+      </div>
+      <div class="calc-card">
+        <div class="calc-grid">
+          <div class="calc-field">
+            <label for="calcType">Trip Type</label>
+            <select id="calcType" onchange="updateCalc()">
+              <option value="beach">Beach & Relaxation</option>
+              <option value="mountain">Mountain Adventure</option>
+              <option value="cultural">Cultural Exploration</option>
+              <option value="romantic">Romantic Getaway</option>
+              <option value="luxury">Luxury Escape</option>
+            </select>
+          </div>
+          <div class="calc-field">
+            <label for="calcDays">Number of Days: <strong id="calcDaysVal">7</strong></label>
+            <input type="range" id="calcDays" min="2" max="30" value="7" oninput="updateCalc()" />
+            <div class="calc-slider-labels"><span>2 days</span><span>30 days</span></div>
+          </div>
+          <div class="calc-field">
+            <label>Hotel Class</label>
+            <div class="calc-hotel-options">
+              <button class="calc-hotel active" data-hotel="budget" onclick="selectCalcHotel(this)">
+                <span class="calc-hotel__stars">★</span>
+                <span class="calc-hotel__label">Budget</span>
+                <span class="calc-hotel__price">$50–80/night</span>
+              </button>
+              <button class="calc-hotel" data-hotel="mid" onclick="selectCalcHotel(this)">
+                <span class="calc-hotel__stars">★★★</span>
+                <span class="calc-hotel__label">Mid-Range</span>
+                <span class="calc-hotel__price">$120–180/night</span>
+              </button>
+              <button class="calc-hotel" data-hotel="luxury" onclick="selectCalcHotel(this)">
+                <span class="calc-hotel__stars">★★★★★</span>
+                <span class="calc-hotel__label">Luxury</span>
+                <span class="calc-hotel__price">$300–500/night</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="calc-result">
+          <div class="calc-result__breakdown" id="calcBreakdown">
+            <div class="calc-line"><span>Accommodation</span><strong id="calcHotelCost">$420</strong></div>
+            <div class="calc-line"><span>Activities & Tours</span><strong id="calcActivityCost">$350</strong></div>
+            <div class="calc-line"><span>Food & Dining</span><strong id="calcFoodCost">$210</strong></div>
+            <div class="calc-line"><span>Transport</span><strong id="calcTransportCost">$140</strong></div>
+          </div>
+          <div class="calc-result__total">
+            <span>Estimated Total per Person</span>
+            <strong id="calcTotal" class="calc-total-price">$1,120</strong>
+          </div>
+          <button class="btn btn--primary calc-cta" onclick="openBookingModal()">Plan This Trip →</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== REVIEWS ==================== -->
+  <section class="section section--alt" id="reviews">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Testimonials</p>
+        <h2 class="section__title">What Our Travelers Say</h2>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"An absolutely magical experience! The Bali trip was perfectly organized from start to finish. Every detail was taken care of."</p>
+          <div class="review-card__author">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80" alt="Sarah" class="review-card__avatar" onerror="onImgError(this)" />
+            <div>
+              <strong>Sarah Mitchell</strong>
+              <span>Bali Trip, 2025</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"Wanderlux made our honeymoon in Santorini unforgettable. The sunset views and private tours were beyond our expectations."</p>
+          <div class="review-card__author">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80" alt="James" class="review-card__avatar" onerror="onImgError(this)" />
+            <div>
+              <strong>James & Emily</strong>
+              <span>Santorini, 2025</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card__stars">★★★★★</div>
+          <p class="review-card__text">"The Swiss Alps adventure was a dream come true. Professional guides, luxury accommodation, and breathtaking scenery everywhere."</p>
+          <div class="review-card__author">
+            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80" alt="Maria" class="review-card__avatar" onerror="onImgError(this)" />
+            <div>
+              <strong>Maria Garcia</strong>
+              <span>Swiss Alps, 2024</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Get In Touch</p>
+        <h2 class="section__title">Ready to Plan Your Trip?</h2>
+        <p class="section__desc">Reach out and our travel experts will craft the perfect itinerary for you.</p>
+      </div>
+      <div class="contact-grid">
+        <form class="contact-form" id="contactForm" onsubmit="return handleContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Full Name</label>
+              <input type="text" id="contactName" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email</label>
+              <input type="email" id="contactEmail" placeholder="john@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message</label>
+            <textarea id="contactMessage" rows="4" placeholder="Tell us about your dream trip..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn--primary">Send Message</button>
+        </form>
+        <div class="contact-info">
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            </div>
+            <div><strong>Phone</strong><br/>+1 (555) 123-4567</div>
+          </div>
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div><strong>Email</strong><br/>hello@wanderlux.com</div>
+          </div>
+          <div class="contact-info__item">
+            <div class="contact-info__icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div><strong>Address</strong><br/>123 Travel Lane, Suite 100</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">FAQ</p>
+        <h2 class="section__title">Frequently Asked Questions</h2>
+        <p class="section__desc">Everything you need to know before booking your dream trip.</p>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>Do I need a visa to travel?</span>
+            <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <p>Visa requirements vary by destination and your nationality. Most of our packages include visa assistance and guidance. When you book a trip, our team will provide a detailed visa checklist specific to your destination and help you through the entire application process. We recommend applying at least 4-6 weeks before your travel date.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>What is your cancellation policy?</span>
+            <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <p>We offer flexible cancellation policies. Cancellations made 30+ days before departure receive a full refund minus a small processing fee. 15-29 days before departure: 50% refund. Less than 15 days: no refund but you can reschedule. We strongly recommend purchasing travel insurance for added protection.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>Is travel insurance included in the package?</span>
+            <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <p>Travel insurance is not included by default but is highly recommended. We offer comprehensive travel insurance plans starting at $49/person that cover trip cancellation, medical emergencies, lost luggage, and flight delays. You can add insurance during the booking process or contact us anytime to add it to an existing booking.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>Can I customize my itinerary?</span>
+            <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <p>Absolutely! Every package can be fully customized to match your preferences. Want to add an extra day, swap an activity, or upgrade your hotel? Just let us know during booking or contact our travel experts. Custom itineraries may have adjusted pricing based on your changes.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-item__question" aria-expanded="false">
+            <span>What payment methods do you accept?</span>
+            <svg class="faq-item__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="faq-item__answer">
+            <p>We accept all major credit cards (Visa, MasterCard, Amex), PayPal, bank transfers, and installment plans. For bookings over $1,000, you can split payments into 3 easy installments with zero interest.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="#" class="navbar__brand">
+            <svg class="navbar__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/></svg>
+            <span>Wanderlux</span>
+          </a>
+          <p>Crafting unforgettable travel experiences since 2015. Your adventure starts here.</p>
+          <div class="footer__socials">
+            <a href="#" aria-label="Facebook"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" aria-label="Twitter"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/></svg></a>
+            <a href="#" aria-label="Instagram"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+            <a href="#" aria-label="YouTube"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 11.75a29 29 0 00.46 5.33A2.78 2.78 0 003.4 19.1c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 001.94-2 29 29 0 00.46-5.25 29 29 0 00-.46-5.43z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="#fff"/></svg></a>
+          </div>
+        </div>
+        <div class="footer__col">
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#destinations">Destinations</a>
+          <a href="#packages">Packages</a>
+          <a href="#deals">Deals</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer__col">
+          <h4>Destinations</h4>
+          <a href="#">Bali, Indonesia</a>
+          <a href="#">Kyoto, Japan</a>
+          <a href="#">Paris, France</a>
+          <a href="#">Santorini, Greece</a>
+          <a href="#">Maldives</a>
+        </div>
+        <div class="footer__col">
+          <h4>Newsletter</h4>
+          <p>Get travel deals & updates straight to your inbox.</p>
+          <form class="newsletter" onsubmit="return handleNewsletter(event)">
+            <input type="email" placeholder="Your email" required />
+            <button type="submit" class="btn btn--primary btn--sm">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Wanderlux Travel. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== DESTINATION DETAIL MODAL ==================== -->
+  <div class="modal-overlay" id="detailModal">
+    <div class="modal modal--detail">
+      <button class="modal__close" onclick="closeDetailModal()" aria-label="Close">&times;</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <!-- ==================== BOOKING MODAL ==================== -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal modal--booking">
+      <button class="modal__close" onclick="closeBookingModal()" aria-label="Close">&times;</button>
+      <h2 class="modal__title">Book Your Trip</h2>
+      <p class="modal__subtitle">Fill in the details below to confirm your adventure.</p>
+      <form id="bookingForm" onsubmit="return handleBooking(event)">
+        <div class="form-group">
+          <label for="bookName">Full Name</label>
+          <input type="text" id="bookName" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label for="bookEmail">Email Address</label>
+          <input type="email" id="bookEmail" placeholder="john@example.com" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bookDate">Travel Date</label>
+            <input type="date" id="bookDate" required />
+          </div>
+          <div class="form-group">
+            <label for="bookGuests">Guests</label>
+            <select id="bookGuests" onchange="updateBookingPrice()">
+              <option value="1">1 Guest</option>
+              <option value="2" selected>2 Guests</option>
+              <option value="3">3 Guests</option>
+              <option value="4">4 Guests</option>
+              <option value="5">5 Guests</option>
+              <option value="6">6 Guests</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bookPkg">Package</label>
+          <select id="bookPkg" onchange="updateBookingPrice()">
+            <option value="899">Explorer — $899/person</option>
+            <option value="1499" selected>Adventurer — $1,499/person</option>
+            <option value="2999">Luxe Escape — $2,999/person</option>
+          </select>
+        </div>
+        <div class="coupon-field">
+          <label for="bookCoupon">Promo Code</label>
+          <div class="coupon-input-wrap">
+            <input type="text" id="bookCoupon" placeholder="e.g. EXPLORE20" maxlength="20" />
+            <button type="button" class="coupon-apply-btn" id="couponApplyBtn" onclick="applyCoupon()">Apply</button>
+          </div>
+          <div class="coupon-feedback" id="couponFeedback"></div>
+        </div>
+        <div class="booking-total">
+          <div>
+            <span>Total Estimated Cost</span>
+            <div class="booking-discount" id="bookingDiscount"></div>
+          </div>
+          <strong id="bookingTotal">$2,998</strong>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Confirm Booking</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== WISHLIST DRAWER ==================== -->
+  <div class="wishlist-drawer-overlay" id="wishlistOverlay"></div>
+  <aside class="wishlist-drawer" id="wishlistDrawer">
+    <div class="wishlist-drawer__header">
+      <h3>Saved Trips</h3>
+      <button class="wishlist-drawer__close" id="wishlistClose" aria-label="Close">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="wishlist-drawer__body" id="wishlistBody">
+      <div class="wishlist-empty" id="wishlistEmpty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p>No saved trips yet</p>
+        <span>Click the heart icon on any destination to save it here.</span>
+      </div>
+      <div class="wishlist-items" id="wishlistItems"></div>
+    </div>
+  </aside>
+
+  <!-- ==================== TOAST ==================== -->
+  <div class="toast" id="toast">
+    <svg class="toast__icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+    <span class="toast__text" id="toastText">Success!</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
